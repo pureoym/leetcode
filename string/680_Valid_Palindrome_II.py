@@ -23,13 +23,17 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
+        # 如果s是回文，返回True
+        # 如果s长度为1或者2，返回True
+        size = len(s)
+        if size < 3 or s == s[::-1]:
+            return True
+        # 否则，判断s是否是可去单字回文，判断方法如下：
         # s可以被分成：s.left，s.center，s.right三部分，其中s.left与
         # s.right是对称相等的，最大长度为len(s)/2，余下部分为s.center。
-        # 如果s是可去单子回文，那么s.left和s.right必定对称相等，且
-        # s.center是可去单子回文，其中可去单子位于s.center的首尾，而
+        # 如果s是可去单字回文，那么s.left和s.right必定对称相等，且
+        # s.center是可去单字回文，其中可去单字位于s.center的首尾，而
         # s.center去掉首或尾的余下部分满足逆序相等：x=x[::-1]。
-        # 如果s是回文，以上逻辑也满足。
-        size = len(s)
         index = 0
         while index < size / 2 and s[index] == s[~index]:
             index += 1
