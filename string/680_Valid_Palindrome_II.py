@@ -23,7 +23,18 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        return False
+        # s可以被分成：s.left，s.center，s.right三部分，其中s.left与
+        # s.right是对称相等的，最大长度为len(s)/2，余下部分为s.center。
+        # 如果s是可去单子回文，那么s.left和s.right必定对称相等，且
+        # s.center是可去单子回文，其中可去单子位于s.center的首尾，而
+        # s.center去掉首或尾的余下部分满足逆序相等：x=x[::-1]。
+        # 如果s是回文，以上逻辑也满足。
+        size = len(s)
+        index = 0
+        while index < size / 2 and s[index] == s[~index]:
+            index += 1
+        s = s[index:size - index]  # 将s变成s.center
+        return s[1:] == s[1:][::-1] or s[:-1] == s[:-1][::-1]
 
 
 if __name__ == '__main__':
@@ -37,6 +48,9 @@ if __name__ == '__main__':
         Input: "abca"
         Output: True
         Explanation: You could delete the character 'c'.
+    Note:
+        The string will only contain lowercase characters a-z. The maximum 
+        length of the string is 50000.
     """
     s = Solution()
     input_str = "abca"
