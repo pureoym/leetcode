@@ -24,6 +24,36 @@ class Solution(object):
         :rtype: int
         """
 
+        if len(s) == 1:
+            return 0
+        if "1" not in s or "0" not in s:
+            return 0
+
+        result = 0
+        # buffer[left,right]
+        flag = s[0]
+        left = 1
+        right = 1
+        print "s[0]=%s" % (flag)
+        for index, value in enumerate(s):
+            if index > 0 and index < len(s) - 1:
+                print "s[%s]=%s" % (index, value)
+                if value == flag:
+                    right += 1
+                    print "s[%s]=%s not chang, buffer=[%s,%s]" % (index, value, left, right)
+                else:
+                    flag = value
+                    print "s[%s]=%s chang, buffer=[%s,%s]" % (index, value, left, right)
+                    result += min(left, right)
+                    print "s[%s]=%s result=%s" % (index, value, result)
+                    left = right
+                    right = 1
+            # if index == len(s) - 1:
+            #     result += min(left, right)
+            #     print "s[%s]=%s result=%s，buffer=[%s,%s]" % (index, value, result, left, right)
+        return result
+
+
 if __name__ == "__main__":
     """
     Give a string s, count the number of non-empty (contiguous) substrings that have
