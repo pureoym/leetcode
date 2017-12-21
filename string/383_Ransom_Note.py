@@ -38,6 +38,7 @@ if __name__ == "__main__":
     be constructed from the magazines ; otherwise, it will return false. Each letter 
     in the magazine string can only be used once in your ransom note.
     Note:You may assume that both strings contain only lowercase letters.
+    用magazine中的字母拼ransomNote字符串，magazine中每个字母只能用一次。返回是否可拼。
     canConstruct("a", "b") -> false
     canConstruct("aa", "ab") -> false
     canConstruct("aa", "aab") -> true
