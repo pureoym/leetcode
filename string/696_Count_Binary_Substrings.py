@@ -20,38 +20,22 @@
 class Solution(object):
     def countBinarySubstrings(self, s):
         """
+        step0:"000111100011"
+        step1:"000 1111 000 11"
+        step2:["000","1111","000","11"]
+        step3:[3,4,3,2]
+        step4:[(3,4),(4,3),(3,2)]=zip([3,4,3,2],[4,3,2])
+        step5:sum(min(3,4),min(4,3),min(3,2))
         :type s: str
         :rtype: int
         """
-
-        if len(s) == 1:
-            return 0
-        if "1" not in s or "0" not in s:
-            return 0
-
-        result = 0
-        # buffer[left,right]
-        flag = s[0]
-        left = 1
-        right = 1
-        print "s[0]=%s" % (flag)
-        for index, value in enumerate(s):
-            if index > 0 and index < len(s) - 1:
-                print "s[%s]=%s" % (index, value)
-                if value == flag:
-                    right += 1
-                    print "s[%s]=%s not chang, buffer=[%s,%s]" % (index, value, left, right)
-                else:
-                    flag = value
-                    print "s[%s]=%s chang, buffer=[%s,%s]" % (index, value, left, right)
-                    result += min(left, right)
-                    print "s[%s]=%s result=%s" % (index, value, result)
-                    left = right
-                    right = 1
-            # if index == len(s) - 1:
-            #     result += min(left, right)
-            #     print "s[%s]=%s result=%s，buffer=[%s,%s]" % (index, value, result, left, right)
-        return result
+        # step0 to step3
+        s = map(len, s.replace("01", "0 1").replace("10", "1 0").split())
+        # step4
+        s = zip(s, s[1:])
+        # step5
+        s = sum(map(min, s))
+        return s
 
 
 if __name__ == "__main__":
