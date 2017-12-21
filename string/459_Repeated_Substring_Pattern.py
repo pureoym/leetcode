@@ -40,6 +40,7 @@ if __name__ == "__main__":
     it and appending multiple copies of the substring together. You may assume the 
     given string consists of lowercase English letters only and its length will not 
     exceed 10000.
+    判断字符串序列是否可以被其子序列周期性的拼接而成。
     Example 1:
         Input: "abab"
         Output: True
