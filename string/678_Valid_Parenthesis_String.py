@@ -23,22 +23,28 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        n = len(s)
-        if n == 0:
-            return True
-        elif n == 1:
-            return s == "*"
-        else:
-            pop_list = ["*)", "(*", "()"]
-            left = 0
-            right = n-1
-            while left < right:
-                if s[left] + s[right] in pop_list:
-                    left += 1
-                    right -= 1
-                else:
-                    return False
-        return True
+        # at_least:最少出现的(的个数，至少需要)的个数
+        # at_most:最多可能出现的(的个数，至多需要)的个数
+        # 需要满足：
+        # 1：at_most 永远非负
+        # 2：at_least 循环结束后为零
+        at_least = at_most = 0
+
+        for char in s:
+            if char == "(":
+                at_least += 1  # +1
+                at_most += 1  # +1
+            if char == ")":
+                at_least = max(at_least - 1, 0)  # -1/-0
+                at_most -= 1  # -1
+            if char == "*":
+                # 可以是 ( * ) 中的任何一个
+                at_least = max(at_least - 1, 0)  # -1/-0
+                at_most += 1  # +1
+            if at_most < 0:
+                return False
+
+        return at_least == 0
 
 
 if __name__ == "__main__":
